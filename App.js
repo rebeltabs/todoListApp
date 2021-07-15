@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -17,6 +17,7 @@ import {
   useColorScheme,
   View,
   Dimensions,
+  Button,
 } from 'react-native';
 
 import {
@@ -63,14 +64,46 @@ const App = () => {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
+  const [tasks, setTasks] = useState([]);
+
+  const [currentTask, setCurrentTask] = useState('');
+
+  const [isEditing, setIsEditing] = useState(false);
+
+  const handleTaskAdd = () => {
+    setTasks([...tasks, currentTask]);
+    setCurrentTask('');
+  };
+
+  const handleRemove = () => {};
+  const handleEditing = () => {
+    setIsEditing(!isEditing);
+  };
+
   return (
     <SafeAreaView style={[backgroundStyle, styles.app]}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+      <View style={styles.titleRegion}>
+        <Text style={styles.sectionTitle}>ToDoor</Text>
+        <Button title="x" onPress={handleEditing} />
+      </View>
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         style={[backgroundStyle]}>
-        <View style={styles.inputRegion}>
-          <TextInput style={styles.inputField}>Add task</TextInput>
+        {tasks.map((task, id) => (
+          <View key={id}>
+            <Text style={[styles.inputField]}>{task}</Text>
+            {isEditing && <Button title="x" />}
+          </View>
+        ))}
+
+        <View>
+          <TextInput
+            onSubmitEditing={handleTaskAdd}
+            value={currentTask}
+            onChangeText={input => setCurrentTask(input)}
+            placeholder="+ Add task to do"
+            style={[styles.inputField]}></TextInput>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -79,15 +112,17 @@ const App = () => {
 
 const styles = StyleSheet.create({
   app: {
-    display: 'flex',
+    height: 100 * vh,
   },
   sectionContainer: {
     marginTop: 32,
     paddingHorizontal: 24,
   },
   sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
+    color: Colors.dark,
+    fontSize: 32,
+    fontWeight: '800',
+    margin: 2 * vh,
   },
   sectionDescription: {
     marginTop: 8,
@@ -98,17 +133,18 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   inputField: {
-    borderColor: '#230000',
-    borderRadius: 1 * vh,
+    borderRadius: 2 * vh,
+    color: Colors.dark,
     fontWeight: '700',
+    fontSize: 18,
     borderWidth: 3,
-    padding: 2 * vw,
-    height: 4 * vh,
+    padding: 3 * vw,
+    height: 6 * vh,
     margin: 10,
   },
-  inputRegion: {
-    borderColor: '#230000',
-    borderWidth: 3,
+  titleRegion: {
+    display: 'flex',
+    flexDirection: 'row',
   },
 });
 
