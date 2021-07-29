@@ -26,5 +26,6 @@ const App = () => {
 };
 
 // New feature (Typescript)
+// New feature (Redux Toolkit)
 
 export default App;
