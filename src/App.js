@@ -6,11 +6,11 @@
  * @flow strict-local
  */
 
-import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import TaskScreen from './TaskScreen';
+import { NavigationContainer } from '@react-navigation/native';
+import React from 'react';
 import AboutScreen from './AboutScreen';
+import TaskScreen from './TaskScreen';
 
 const Tabs = createBottomTabNavigator();
 
@@ -24,5 +24,7 @@ const App = () => {
     </NavigationContainer>
   );
 };
+
+// New feature (Redux Toolkit)
 
 export default App;
