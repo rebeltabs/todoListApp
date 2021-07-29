@@ -28,10 +28,7 @@ const App = () => {
 // New feature (Typescript)
 // New feature (Redux Toolkit)
 // Introduce bug
-<<<<<<< HEAD
 // Fixed the bug
-
-=======
 // Another feature
->>>>>>> f700a1ece42b94e4a2054dc61951ff0ce7862c85
+
 export default App;
